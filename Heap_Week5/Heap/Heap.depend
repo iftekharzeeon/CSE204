@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1617989372 source:c:\users\lenovo\documents\heap\main.cpp
+	<iostream>
+	<fstream>
+	<cstdio>
+	<queue>
+	<ctime>
+	"heap.h"
+
+1617990525 c:\users\lenovo\documents\heap\heap.h
+	<stdlib.h>
+
