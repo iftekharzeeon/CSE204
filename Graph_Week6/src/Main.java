@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,8 +13,10 @@ public class Main {
         }
         Graph graph = new Graph(input[0]);
         int[] friendsCollection = new int[input[3]];
+        int[] friendsInfo = new int[input[3]];
         int collectedItems = 0;
         int totalItems = 0;
+        String outputMessages = "";
         //System.out.println("Enter the number of edges: ");
         for (int j = 0; j < input[1]; j++) {
             String[] connections = scanner.nextLine().split(" ");
@@ -31,18 +35,35 @@ public class Main {
             String[] startingPoints = scanner.nextLine().split(" ");
             int startingPoint = Integer.parseInt(startingPoints[0]);
             int friend = Integer.parseInt(startingPoints[1]);
-            friendsCollection[friend] = graph.bfs(startingPoint);
-            collectedItems += friendsCollection[friend];
+            friendsInfo[friend] = startingPoint;
+        }
+
+        for (int k = 0; k < input[3]; k++) {
+            friendsCollection[k] = graph.dfs(friendsInfo[k]);
+            collectedItems += friendsCollection[k];
         }
 
         if (collectedItems == totalItems) {
+            outputMessages = "Mission Accomplished\n";
             System.out.println("Mission Accomplished");
         } else {
+            outputMessages = "Mission Impossible\n";
             System.out.println("Mission Impossible");
         }
+        outputMessages += collectedItems + " out of " + totalItems + " pieces are collected\n";
         System.out.println(collectedItems + " out of " + totalItems + " pieces are collected");
         for (int j = 0; j < friendsCollection.length; j++) {
+            outputMessages += j + " collected " + friendsCollection[j] + " pieces\n";
             System.out.println(j + " collected " + friendsCollection[j] + " pieces");
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter("output.txt");
+            fileWriter.write(outputMessages);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error Writing to the file");
+            e.printStackTrace();
         }
     }
 }

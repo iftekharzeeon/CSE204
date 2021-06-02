@@ -24,6 +24,9 @@ public class Graph {
 
     public int bfs(int start) {
         Queue<Integer> queue = new LinkedList<>();
+        if (visitedNodes[start] == 1) {
+            return 0;
+        }
         queue.add(start);
         int count = locations[start];
         visitedNodes[start] = 1;
@@ -42,6 +45,9 @@ public class Graph {
     }
 
     public int dfs(int start) {
+        if (visitedNodes[start] == 1) {
+            return 0;
+        }
         visitedNodes[start] = 1;
         int totalPieces = locations[start];
         for (int node : map.get(start)) {
