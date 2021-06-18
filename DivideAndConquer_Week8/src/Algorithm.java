@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Algorithm {
 
-    public static MinimumPair closestHouse(Point[] px, Point[] py, int startIndex, int endIndex) {
+    public static MinimumPair secondClosestHouse(Point[] px, Point[] py, int startIndex, int endIndex) {
 
         if ((endIndex - startIndex) <= 2) {
             return minimumDistance(px, startIndex, endIndex);
@@ -10,8 +10,8 @@ public class Algorithm {
 
         int middle = (startIndex + endIndex) / 2;
 
-        MinimumPair leftMinimum = closestHouse(px, py, startIndex, middle);
-        MinimumPair rightMinimum = closestHouse(px, py, middle+1, endIndex);
+        MinimumPair leftMinimum = secondClosestHouse(px, py, startIndex, middle);
+        MinimumPair rightMinimum = secondClosestHouse(px, py, middle+1, endIndex);
 
         MinimumPair minimumPair = new MinimumPair();
 
@@ -51,9 +51,6 @@ public class Algorithm {
             minimumPair.house1ForSecondMin = rightMinimum.house1ForSecondMin;
             minimumPair.house2ForSecondMin = rightMinimum.house2ForSecondMin;
         }
-
-//        double temporarySecondMin = Math.min(leftMinimum.secondMinimum, rightMinimum.secondMinimum);
-//        minimumPair.secondMinimum = Math.min(temporarySecondMin, minimumPair.secondMinimum);
 
         LinkedList<Point> middleArea = new LinkedList<>();
 
@@ -133,38 +130,6 @@ public class Algorithm {
 
         return minimumPair;
     }
-
-    public static double bruteForce(Point[] points, int startIndex, int endIndex) {
-        double min = Double.MAX_VALUE;
-        double secondMin = Double.MAX_VALUE;
-        int first = 0;
-        int second = 0;
-        int point1 = 0;
-        int point2 = 0;
-
-        for (int i = startIndex; i <= endIndex; i++) {
-            for (int j = i+1; j <= endIndex; j++) {
-                double distance = distanceOfPoints(points[i], points[j]);
-                if (distance < min) {
-                    point1 = first;
-                    point2 = second;
-
-                    first = points[i].getId();
-                    second = points[j].getId();
-                    secondMin = min;
-                    min = distance;
-                } else if ((distance != min) && (distance < secondMin)) {
-                    point1 = points[i].getId();
-                    point2 = points[j].getId();
-                    secondMin = distance;
-                }
-            }
-        }
-        System.out.println("Second Minimum from Brute Force: " + secondMin);
-        System.out.println("Point 1: " + point1 + " Point 2: " + point2);
-        return min;
-    }
-
 
     private static double distanceOfPoints(Point p1, Point p2) {
         double dxSquared = Math.pow((p1.getX() - p2.getX()), 2);
