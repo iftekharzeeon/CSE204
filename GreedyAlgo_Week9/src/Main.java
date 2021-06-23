@@ -5,21 +5,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int k = scanner.nextInt();
-//        scanner.nextLine();
-        Integer[] plantsPrice = new Integer[n];
-        int[] friendsPurchased = new int[k];
+
+        int numberOfPlants = scanner.nextInt();
+        int numberOfFriends = scanner.nextInt();
+
+        Integer[] plantsPrice = new Integer[numberOfPlants];
+        int[] friendsPurchased = new int[numberOfFriends];
         int minimumCost = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < numberOfPlants; i++) {
             plantsPrice[i] = scanner.nextInt();
         }
-//        scanner.nextLine();
+
         Arrays.sort(plantsPrice, Collections.reverseOrder());
+
         int i = 0;
         int j = 0;
-        while (i != n) {
-            if (j == k) {
+        while (i != numberOfPlants) {
+            if (j == numberOfFriends) {
                 j= 0;
             }
             minimumCost += plantsPrice[i] * (friendsPurchased[j] + 1);
@@ -27,9 +29,6 @@ public class Main {
             friendsPurchased[j]++;
             j++;
         }
-        System.out.println("cost:" + minimumCost);
-//        for (int i = 0; i < n; i++) {
-//            System.out.println(plantsPrice[i]);
-//        }
+        System.out.println(minimumCost);
     }
 }
